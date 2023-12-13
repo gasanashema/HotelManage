@@ -7,6 +7,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StaffDepartment;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\BookingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,8 @@ Route::post('admin/login', [AdminController::class, 'check_login']);
 Route::get('admin/logout', [AdminController::class, 'logout']);
 
 // running the admin dashboard
-Route::get('admin',function(){
-    return view('dashboard');
-});
+Route::get('admin', [AdminController::class, 'dashboard']);
+
 
 
 // Roomtype Routes
@@ -58,3 +58,7 @@ Route::get('admin/staff/payment/{id}/{staff_id}/delete', [StaffController::class
 // Staff Routes
 Route::get('admin/staff/{id}/delete', [StaffController::class, 'destroy']);
 Route::resource('admin/staff',StaffController::class);
+// Booking Routes
+Route::get('admin/booking/{id}/delete', [BookingController::class, 'destroy']);
+Route::get('admin/booking/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
+Route::resource('admin/booking',BookingController::class);
